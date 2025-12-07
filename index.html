@@ -147,7 +147,10 @@
         <div id="warningModal" class="modal">
             <div class="modal-content">
                 <div class="character">
-                    <div class="character-image">💕</div>
+                    <div class="character-image">
+                        <img src="characters/character.png" alt="キャラクター" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="character-fallback">💕</div>
+                    </div>
                 </div>
                 <div class="message" id="warningMessage">
                     お疲れさまでした♪ もう十分見たから休憩の時間ですよ〜

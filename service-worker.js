@@ -1,11 +1,13 @@
 // Service Worker for PWA functionality
-const CACHE_NAME = 'timer-app-v1.0.0';
+const CACHE_NAME = 'timer-app-v1.0.2';
 const urlsToCache = [
   './',
   './index.html',
   './styles.css',
   './app.js',
-  './manifest.json'
+  './manifest.json',
+  './characters/character.png',
+  './icons/icon-192x192.png'
 ];
 
 // Install event
