@@ -1,0 +1,617 @@
+/* モバイル版スタイル - スマホ最適化 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8f9fa;
+    color: #333;
+    overflow-x: hidden;
+}
+
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    max-width: 100vw;
+}
+
+/* ナビゲーション */
+.nav {
+    display: flex;
+    background: white;
+    border-top: 1px solid #e0e0e0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 8px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 4px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    color: #666;
+}
+
+.nav-item.active {
+    color: #007bff;
+}
+
+.nav-icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.nav-label {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* メインコンテンツ */
+.main {
+    flex: 1;
+    padding: 20px 16px 80px 16px; /* 下部にナビゲーション分の余白 */
+}
+
+/* タブコンテンツ */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* タイマーカード */
+.timer-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.timer-display {
+    margin-bottom: 24px;
+}
+
+.time-remaining {
+    font-size: 48px;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 8px;
+    font-family: 'SF Mono', Consolas, monospace;
+}
+
+.timer-status {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.timer-controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ボタン */
+.btn {
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 12px 20px;
+    min-width: 100px;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+.btn-primary:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:disabled {
+    background: #ccc;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-warning {
+    background: #ffc107;
+    color: #333;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    min-width: auto;
+    font-size: 12px;
+}
+
+/* 監視中サイト */
+.monitoring-sites {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.monitoring-sites h3 {
+    margin-bottom: 16px;
+    color: #333;
+    font-size: 18px;
+}
+
+.site-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.site-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.site-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.site-status {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    background: #28a745;
+}
+
+/* 今日の使用状況 */
+.today-usage {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.today-usage h3 {
+    margin-bottom: 16px;
+    color: #333;
+    font-size: 18px;
+}
+
+.usage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.usage-item {
+    text-align: center;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
+
+.usage-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 4px;
+}
+
+.usage-label {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 設定カード */
+.settings-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.settings-card h2 {
+    margin-bottom: 24px;
+    color: #333;
+    font-size: 20px;
+}
+
+.setting-group {
+    margin-bottom: 24px;
+}
+
+.setting-group:last-child {
+    margin-bottom: 0;
+}
+
+.setting-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+}
+
+.input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.input:focus {
+    border-color: #007bff;
+}
+
+.add-site, .add-message {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.add-site .input, .add-message .input {
+    flex: 1;
+}
+
+/* リスト */
+.sites-list, .messages-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    margin-bottom: 8px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.list-text {
+    flex: 1;
+    color: #333;
+}
+
+.remove-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* トグルスイッチ */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #007bff;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* 統計カード */
+.stats-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stats-card h2 {
+    margin-bottom: 24px;
+    color: #333;
+    font-size: 20px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px 16px;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
+
+.stat-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+}
+
+/* モーダル */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    max-width: 90%;
+    width: 100%;
+    max-width: 400px;
+    animation: modalSlideUp 0.3s ease-out;
+}
+
+@keyframes modalSlideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.character {
+    margin-bottom: 20px;
+}
+
+.character-image {
+    font-size: 64px;
+    margin-bottom: 16px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.message {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.countdown {
+    font-size: 14px;
+    color: #dc3545;
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ブロック画面 */
+.block-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.block-content {
+    text-align: center;
+    color: white;
+}
+
+.block-character {
+    font-size: 80px;
+    margin-bottom: 24px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.block-content h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+}
+
+.block-content p {
+    font-size: 18px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.block-timer {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 32px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+}
+
+/* レスポンシブ調整 */
+@media (max-width: 480px) {
+    .timer-controls {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .usage-grid, .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+    }
+    
+    .modal-buttons .btn {
+        width: 100%;
+    }
+}
+
+/* PWA用の追加スタイル */
+@media (display-mode: standalone) {
+    body {
+        -webkit-user-select: none;
+        user-select: none;
+    }
+}
+
+/* スクロールバーのスタイリング */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使いすぎタイマー - モバイル版</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="使いすぎタイマー">
+</head>
+<body>
+    <div class="app">
+        <!-- ナビゲーション -->
+        <nav class="nav">
+            <div class="nav-item active" data-tab="timer">
+                <span class="nav-icon">⏰</span>
+                <span class="nav-label">タイマー</span>
+            </div>
+            <div class="nav-item" data-tab="settings">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">設定</span>
+            </div>
+            <div class="nav-item" data-tab="stats">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">統計</span>
+            </div>
+        </nav>
+
+        <main class="main">
+            <!-- タイマータブ -->
+            <section id="timer-tab" class="tab-content active">
+                <div class="timer-card">
+                    <div class="timer-display">
+                        <div class="time-remaining" id="timeRemaining">30:00</div>
+                        <div class="timer-status" id="timerStatus">タイマー停止中</div>
+                    </div>
+                    
+                    <div class="timer-controls">
+                        <button id="startBtn" class="btn btn-primary">🚀 開始</button>
+                        <button id="pauseBtn" class="btn btn-secondary" disabled>⏸️ 一時停止</button>
+                        <button id="resetBtn" class="btn btn-danger">🔄 リセット</button>
+                    </div>
+                </div>
+
+                <!-- 監視中サイト表示 -->
+                <div class="monitoring-sites">
+                    <h3>👀 監視中のサイト</h3>
+                    <div class="site-list" id="monitoringSites">
+                        <!-- 監視中のサイトがここに表示される -->
+                    </div>
+                </div>
+
+                <!-- 今日の使用状況 -->
+                <div class="today-usage">
+                    <h3>📊 今日の使用状況</h3>
+                    <div class="usage-grid">
+                        <div class="usage-item">
+                            <div class="usage-value" id="totalUsage">0分</div>
+                            <div class="usage-label">総使用時間</div>
+                        </div>
+                        <div class="usage-item">
+                            <div class="usage-value" id="sessionCount">0回</div>
+                            <div class="usage-label">セッション数</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 設定タブ -->
+            <section id="settings-tab" class="tab-content">
+                <div class="settings-card">
+                    <h2>⚙️ 設定</h2>
+                    
+                    <div class="setting-group">
+                        <label for="timeLimitInput">⏱️ 制限時間（分）</label>
+                        <input type="number" id="timeLimitInput" value="30" min="1" max="480" class="input">
+                    </div>
+
+                    <div class="setting-group">
+                        <label>🌐 監視対象サイト</label>
+                        <div class="sites-list" id="sitesList">
+                            <!-- サイトリストがここに動的に追加される -->
+                        </div>
+                        <div class="add-site">
+                            <input type="text" id="newSiteInput" placeholder="例: twitter.com" class="input">
+                            <button id="addSiteBtn" class="btn btn-small">➕ 追加</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <label>💬 キャラクターメッセージ</label>
+                        <div class="messages-list" id="messagesList">
+                            <!-- メッセージリストがここに動的に追加される -->
+                        </div>
+                        <div class="add-message">
+                            <textarea id="newMessageInput" placeholder="新しいメッセージを追加..." class="input"></textarea>
+                            <button id="addMessageBtn" class="btn btn-small">➕ 追加</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <label for="notificationSwitch">🔔 通知を有効にする</label>
+                        <label class="switch">
+                            <input type="checkbox" id="notificationSwitch" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 統計タブ -->
+            <section id="stats-tab" class="tab-content">
+                <div class="stats-card">
+                    <h2>📊 使用統計</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-icon">⏱️</div>
+                            <div class="stat-value" id="statUsage">0分</div>
+                            <div class="stat-label">使用時間</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">🚫</div>
+                            <div class="stat-value" id="statBlocks">0回</div>
+                            <div class="stat-label">ブロック回数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-value" id="statGoal">0%</div>
+                            <div class="stat-label">目標達成率</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">🔥</div>
+                            <div class="stat-value" id="statStreak">0日</div>
+                            <div class="stat-label">連続達成</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- キャラクター警告モーダル -->
+        <div id="warningModal" class="modal">
+            <div class="modal-content">
+                <div class="character">
+                    <div class="character-image">💕</div>
+                </div>
+                <div class="message" id="warningMessage">
+                    お疲れさまでした♪ もう十分見たから休憩の時間ですよ〜
+                </div>
+                <div class="countdown" id="countdown">5秒後にブロック画面に移行します...</div>
+                <div class="modal-buttons">
+                    <button id="continueBtn" class="btn btn-warning">あと5分だけ</button>
+                    <button id="stopNowBtn" class="btn btn-success">今すぐ休憩</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ブロック画面 -->
+        <div id="blockScreen" class="block-screen" style="display: none;">
+            <div class="block-content">
+                <div class="block-character">💤</div>
+                <h2>休憩時間です</h2>
+                <p>制限時間に達しました。<br>少し休憩しませんか？</p>
+                <div class="block-timer" id="blockTimer">残り休憩時間: 15:00</div>
+                <button id="emergencyBtn" class="btn btn-danger">緊急時のみ解除</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Service Worker登録
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered successfully');
+                        
+                        // アップデート確認
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // 新しいバージョンが利用可能
+                                    if (confirm('新しいバージョンが利用可能です。更新しますか？')) {
+                                        newWorker.postMessage({ action: 'skipWaiting' });
+                                        window.location.reload();
+                                    }
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => console.log('Service Worker registration failed:', error));
+            });
+        }
+        
+        // PWAインストールプロンプト
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // インストールボタンを表示
+            showInstallButton();
+        });
+        
+        function showInstallButton() {
+            // インストールプロンプトを表示する処理
+            const installBanner = document.createElement('div');
+            installBanner.innerHTML = `
+                <div style="position: fixed; top: 0; left: 0; right: 0; background: #007bff; color: white; text-align: center; padding: 12px; z-index: 4000;">
+                    <span>📱 アプリとしてインストールできます</span>
+                    <button onclick="installPWA()" style="background: white; color: #007bff; border: none; border-radius: 4px; margin-left: 10px; padding: 4px 8px; cursor: pointer;">インストール</button>
+                    <button onclick="this.parentElement.remove()" style="background: transparent; color: white; border: 1px solid white; border-radius: 4px; margin-left: 5px; padding: 4px 8px; cursor: pointer;">×</button>
+                </div>
+            `;
+            document.body.appendChild(installBanner);
+        }
+        
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('PWAインストール完了');
+                    }
+                    deferredPrompt = null;
+                    // インストールバナーを削除
+                    document.querySelector('[onclick="this.parentElement.remove()"]').parentElement.remove();
+                });
+            }
+        }
+        
+        // PWAとして起動されているかチェック
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                console.log('PWAモードで起動中');
+                document.body.classList.add('pwa-mode');
+            }
+        });
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
